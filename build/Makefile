@@ -36,6 +36,12 @@ build:
 	@echo --------------------building $(project) in $(config) mode--------------------
 	$(compiler) $(srcs) $(libs) $(flags) -o $(bin_path)/$(project)$(format)
 
+ifeq ($(config), debug)
+	run_cmd = gdb ./$(bin_path)/$(project)$(format)
+else
+	run_cmd = ./$(bin_path)/$(project)$(format)
+endif
+
 run:
 	@echo --------------------running $(project) in $(config) mode--------------------
-	./$(bin_path)/$(project)$(format)
+	$(run_cmd)
